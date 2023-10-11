@@ -1,0 +1,108 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serv1-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serv1
+  template:
+    metadata:
+      labels:
+        app: serv1
+    spec:
+      containers:
+      - name: serv1
+        image: demo/serv1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8081
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: serv1-service
+spec:
+  selector:
+    app: serv1
+  ports:
+  - name: http
+    port: 8081
+    targetPort: 8081
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serv2-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serv2
+  template:
+    metadata:
+      labels:
+        app: serv2
+    spec:
+      containers:
+      - name: serv2
+        image: demo/serv2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8082
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: serv2-service
+spec:
+  selector:
+    app: serv2
+  ports:
+  - name: http
+    port: 8082
+    targetPort: 8082
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: serv3-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: serv3
+  template:
+    metadata:
+      labels:
+        app: serv3
+    spec:
+      containers:
+      - name: serv3
+        image: demo/serv3
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8083
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: serv3-service
+spec:
+  selector:
+    app: serv3
+  ports:
+  - name: http
+    port: 8083
+    targetPort: 8083
